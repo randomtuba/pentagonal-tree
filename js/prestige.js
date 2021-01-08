@@ -15,6 +15,7 @@ addLayer("p", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        mult=mult.mul(upgradeEffect("p", 21))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -33,6 +34,29 @@ addLayer("p", {
       description: "Multiply point gain by 1.5.",
       cost: new Decimal(1),
       unlocked(){return player.p.total.gte(1)},
+    },
+    12: {
+      title: "Prestige Bonus",
+      description: "Gain more points based on total prestige points.",
+      cost: new Decimal(1),
+      unlocked(){return hasUpgrade("p",11)},
+      effect(){return hasUpgrade("p", 12) ? player.p.total.sqrt().add(1) : new Decimal(1)},
+      effectDisplay(){return hasUpgrade("p",12)?`x${format(this.effect())}`:"x1"}
+    },
+    21: {
+      title: "Prestige Doubling",
+      description: "Double prestige point gain.",
+      cost: new Decimal(2),
+      unlocked(){return hasUpgrade("p",11)},
+      effect() {return hasUpgrade("p", 21) ? new Decimal(2) : new Decimal(1)}
+    },
+    22: {
+      title: "Self-Synergizing",
+      description: "Gain more points based on points.",
+      cost: new Decimal(5),
+      unlocked(){return hasUpgrade("p",11)},
+      effect(){return hasUpgrade("p",22) ? player.points.add(1).log(8).add(1) : new Decimal(1)},
+      effectDisplay(){return hasUpgrade("p",22)?`x${format(this.effect())}`:"x1"}
     },
   },
 })
