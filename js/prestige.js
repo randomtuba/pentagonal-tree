@@ -59,4 +59,5 @@ addLayer("p", {
       effectDisplay(){return hasUpgrade("p",22)?`x${format(this.effect())}`:"x1"}
     },
   },
+  branches: ["t"]
 })

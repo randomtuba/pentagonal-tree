@@ -2,7 +2,7 @@ var layoutInfo = {
     startTab: "none",
 	showTree: true,
 
-  treeLayout: [["p", "t"]]
+    treeLayout: [["p"],["t"]]
 
     
 }
