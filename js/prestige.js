@@ -6,7 +6,7 @@ addLayer("p", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#4BDC13",
+    color: "#0086C4",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "prestige points", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
@@ -24,5 +24,15 @@ addLayer("p", {
     hotkeys: [
         {key: "p", description: "P: Reset for prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true}
+    layerShown(){return true},
+  upgrades: {
+    rows:2,
+    cols:2,
+    11: {
+      title: "Point Boost",
+      description: "Multiply point gain by 1.5.",
+      cost: new Decimal(1),
+      unlocked(){return player.p.total.gte(1)},
+    },
+  },
 })
