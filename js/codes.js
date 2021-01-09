@@ -7,12 +7,12 @@ addLayer("c", {
 		points: new Decimal(0),
     }},
     color: "#F56042",
-    requires: new Decimal(1e9), // Can be a function that takes requirement increases into account
+    requires: new Decimal(1e10), // Can be a function that takes requirement increases into account
     resource: "codes", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     base() {
-      return 5;
+      return 10;
     },
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     gainMult() { // Calculate the multiplier for main currency from bonuses
