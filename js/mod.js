@@ -45,6 +45,7 @@ function getPointGen() {
   gain = gain.mul(hasUpgrade("p", 11) ? 1.5 : 1)
   gain = gain.mul(upgradeEffect("p", 12))
   gain = gain.mul(upgradeEffect("p", 22))
+  gain = gain.mul(upgradeEffect("t", 11))
 	return gain
 }
 

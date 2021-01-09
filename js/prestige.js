@@ -59,5 +59,13 @@ addLayer("p", {
       effectDisplay(){return hasUpgrade("p",22)?`x${format(this.effect())}`:"x1"}
     },
   },
-  branches: ["t"]
+  branches: ["t"],
+  doReset(layer){
+    if(layer=="p")return
+    let keep = []
+    if (layer=="t") {
+    if (hasMilestone("t", 0)) keep.push("upgrades")
+    }
+    layerDataReset("p",keep)
+  }
 })

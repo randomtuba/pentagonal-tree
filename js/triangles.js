@@ -25,6 +25,26 @@ addLayer("t", {
         {key: "t", description: "T: Reset for triangles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return hasUpgrade("p",22) || player.t.best.gte(1)},
+    upgrades: {
+      rows: 3,
+      cols: 3,
+      11: {
+        title: "Point Boost II",
+        description: "Multiply point gain based on total triangles.",
+        cost: new Decimal(1),
+        unlocked(){return player.t.total.gte(1)},
+        effect(){return hasUpgrade("t", 11) ? player.t.total.pow(0.6).add(1) : new Decimal(1)},
+        effectDisplay(){return hasUpgrade("t",11)?`x${format(this.effect())}`:"x1"}
+      },
+      12: {
+        title: "Prestige Boost II",
+        description: "Multiply prestige point gain based on total triangles.",
+        cost: new Decimal(3),
+        unlocked(){return hasUpgrade("t", 11)},
+        effect(){return hasUpgrade("t", 12) ? player.t.total.pow(0.3).add(1) : new Decimal(1)},
+        effectDisplay(){return hasUpgrade("t",12)?`x${format(this.effect())}`:"x1"}
+      },
+    },
     milestones: {
     0: {
       requirementDescription: "10 triangles",
