@@ -6,8 +6,8 @@ addLayer("p", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    update(diff){
-      player.p.points = hasMilestone("t", 1) ? player.p.points.add(tmp.p.resetGain.times(diff)) : player.p.points
+    passiveGeneration(){
+      return hasMilestone("t", 1) ? 1 : 0
     },
     color: "#0086C4",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
