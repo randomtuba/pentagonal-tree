@@ -63,6 +63,12 @@ addLayer("t", {
         cost: new Decimal(500),
         unlocked(){return hasUpgrade("t", 21)},
       },
+      23: {
+        title: "Into The Matrix",
+        description: "Unlock a new prestige layer.",
+        cost: new Decimal(2000),
+        unlocked(){return hasUpgrade("t", 21)},
+      },
     },
     milestones: {
     0: {
