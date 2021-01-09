@@ -44,7 +44,7 @@ addLayer("p", {
       description: "Gain more points based on total prestige points.",
       cost: new Decimal(1),
       unlocked(){return hasUpgrade("p",11)},
-      effect(){return hasUpgrade("p", 12) ? player.p.total.sqrt().add(1) : new Decimal(1)},
+      effect(){return hasUpgrade("p", 12) ? (hasUpgrade("t",21) ? player.p.total.pow(0.7).add(1) : player.p.total.sqrt().add(1)) : new Decimal(1)},
       effectDisplay(){return hasUpgrade("p",12)?`x${format(this.effect())}`:"x1"}
     },
     21: {
@@ -59,7 +59,7 @@ addLayer("p", {
       description: "Gain more points based on points.",
       cost: new Decimal(5),
       unlocked(){return hasUpgrade("p",11)},
-      effect(){return hasUpgrade("p",22) ? player.points.add(1).log(8).add(1) : new Decimal(1)},
+      effect(){return hasUpgrade("p",22) ? (hasUpgrade("t",22) ? player.points.add(1).log(4).add(1) : player.points.add(1).log(8).add(1)) : new Decimal(1)},
       effectDisplay(){return hasUpgrade("p",22)?`x${format(this.effect())}`:"x1"}
     },
   },

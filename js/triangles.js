@@ -38,7 +38,7 @@ addLayer("t", {
         effectDisplay(){return hasUpgrade("t",11)?`x${format(this.effect())}`:"x1"}
       },
       12: {
-        title: "Prestige Boost II",
+        title: "Prestige Bonus II",
         description: "Multiply prestige point gain based on total triangles.",
         cost: new Decimal(3),
         unlocked(){return hasUpgrade("t", 11)},
@@ -50,6 +50,18 @@ addLayer("t", {
         description: "Triple triangle gain.",
         cost: new Decimal(5),
         unlocked(){return hasUpgrade("t", 11)},
+      },
+      21: {
+        title: "Better Prestige Bonus",
+        description: "Make the Prestige Bonus formula better.",
+        cost: new Decimal(100),
+        unlocked(){return hasUpgrade("t", 13)},
+      },
+      22: {
+        title: "Better Synergizing",
+        description: "Make the Self-Synergizing formula better.",
+        cost: new Decimal(500),
+        unlocked(){return hasUpgrade("t", 21)},
       },
     },
     milestones: {
