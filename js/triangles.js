@@ -15,6 +15,7 @@ addLayer("t", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        mult=mult.mul(hasUpgrade("t", 13) ? 3 : 1)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -44,20 +45,26 @@ addLayer("t", {
         effect(){return hasUpgrade("t", 12) ? player.t.total.pow(0.3).add(1) : new Decimal(1)},
         effectDisplay(){return hasUpgrade("t",12)?`x${format(this.effect())}`:"x1"}
       },
+      13: {
+        title: "Triangle Tripler",
+        description: "Triple triangle gain.",
+        cost: new Decimal(5),
+        unlocked(){return hasUpgrade("t", 11)},
+      },
     },
     milestones: {
     0: {
       requirementDescription: "10 triangles",
       effectDescription: "You keep Prestige Upgrades on reset.",
       done() {
-        return player.t.points.gte(5);
+        return player.t.points.gte(10);
       }
     },
     1: {
       requirementDescription: "1000 triangles",
       effectDescription: "Gain 100% of Prestige Points every second.",
       done() {
-        return player.t.points.gte(10);
+        return player.t.points.gte(1000);
       }
     },
   },

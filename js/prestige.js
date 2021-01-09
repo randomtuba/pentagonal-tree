@@ -6,6 +6,9 @@ addLayer("p", {
         unlocked: true,
 		points: new Decimal(0),
     }},
+    update(diff){
+      player.p.points = hasMilestone("t", 1) ? player.p.points.add(tmp.p.resetGain.times(diff)) : player.p.points
+    },
     color: "#0086C4",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "prestige points", // Name of prestige currency
@@ -16,6 +19,7 @@ addLayer("p", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         mult=mult.mul(upgradeEffect("p", 21))
+        mult=mult.mul(upgradeEffect("t", 12))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
