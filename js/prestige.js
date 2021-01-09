@@ -63,7 +63,7 @@ addLayer("p", {
       effectDisplay(){return hasUpgrade("p",22)?`x${format(this.effect())}`:"x1"}
     },
   },
-  branches: ["t"],
+  branches: ["t","c"],
   doReset(layer){
     if(layer=="p")return
     let keep = []
