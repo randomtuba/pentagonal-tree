@@ -20,6 +20,8 @@ addLayer("p", {
         mult = new Decimal(1)
         mult=mult.mul(upgradeEffect("p", 21))
         mult=mult.mul(upgradeEffect("t", 12))
+      mult=mult.mul(new Decimal(hasUpgrade("t",31)?4:3).pow(getBuyableAmount("c",12)))
+      mult=mult.mul(upgradeEffect("p",23))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -31,8 +33,8 @@ addLayer("p", {
     ],
     layerShown(){return true},
   upgrades: {
-    rows:2,
-    cols:2,
+    rows:5,
+    cols:5,
     11: {
       title: "Point Boost",
       description: "Multiply point gain by 1.5.",
@@ -46,6 +48,14 @@ addLayer("p", {
       unlocked(){return hasUpgrade("p",11)},
       effect(){return hasUpgrade("p", 12) ? (hasUpgrade("t",21) ? player.p.total.pow(0.7).add(1) : player.p.total.sqrt().add(1)) : new Decimal(1)},
       effectDisplay(){return hasUpgrade("p",12)?`x${format(this.effect())}`:"x1"}
+    },
+    13: {
+      title: "Upgrade Bonus",
+      description: "Gain more points based on Prestige Upgrades bought.",
+      cost: new Decimal(6.66e26),
+      unlocked(){return hasUpgrade("t",33)},
+      effect(){return hasUpgrade("p", this.id) ? new Decimal(3).pow(player.p.upgrades.length) : new Decimal(1)},
+      effectDisplay(){return hasUpgrade("p",this.id)?`x${format(this.effect())}`:"x1"}
     },
     21: {
       title: "Prestige Doubling",
@@ -62,6 +72,14 @@ addLayer("p", {
       effect(){return hasUpgrade("p",22) ? (hasUpgrade("t",22) ? player.points.add(1).log(4).add(1) : player.points.add(1).log(8).add(1)) : new Decimal(1)},
       effectDisplay(){return hasUpgrade("p",22)?`x${format(this.effect())}`:"x1"}
     },
+    23: {
+      title: "Reverse Prestige Bonus",
+      description: "Gain more prestige points based on points.",
+      cost: new Decimal(2e29),
+      unlocked(){return hasUpgrade("t",33)},
+      effect(){return hasUpgrade("p", this.id) ? player.points.pow(0.1) : new Decimal(1)},
+      effectDisplay(){return hasUpgrade("p",this.id)?`x${format(this.effect())}`:"x1"}
+    },
   },
   branches: ["t","c"],
   doReset(layer){
@@ -69,6 +87,9 @@ addLayer("p", {
     let keep = []
     if (layer=="t") {
     if (hasMilestone("t", 0)) keep.push("upgrades")
+    }
+    if (layer=="c"){
+      if (hasMilestone("c",0))keep.push("upgrades")
     }
     layerDataReset("p",keep)
   }

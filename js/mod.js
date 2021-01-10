@@ -12,12 +12,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1.1",
-	name: "Row 2",
+	num: "0.2",
+	name: "Codes",
 }
 
 let changelog = `<h1>Changelog:</h1><br><br>
-
+  <h3>v0.2</h3><br>
+    - Added Codes and Code Buyables <br>
+    - Added 3 new triangle upgrades and 2 new prestige upgrades
+    <br><br>
   <h3>v0.1.1</h3><br>
 		- Changed the id of the game <br>
 		- Fixed a bug where Prestige Bonus would not be affected by passive prestige point generation
@@ -44,6 +47,7 @@ function canGenPoints(){
 // Calculate points/sec!
 function getPointGen() {
 	if(!canGenPoints())
+    
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
@@ -51,6 +55,9 @@ function getPointGen() {
   gain = gain.mul(upgradeEffect("p", 12))
   gain = gain.mul(upgradeEffect("p", 22))
   gain = gain.mul(upgradeEffect("t", 11))
+  gain=gain.mul(new Decimal(hasUpgrade("t",31)?4:3).pow(getBuyableAmount("c",11)))
+  gain=gain.mul(upgradeEffect("p",13))
+  
 	return gain
 }
 
@@ -59,12 +66,12 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = [
+var displayThings = ["Current Endgame: 1e50 points and 1e25 triangles"
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return player.points.gte(new Decimal("e50"))
 }
 
 

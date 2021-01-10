@@ -16,6 +16,8 @@ addLayer("t", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         mult=mult.mul(hasUpgrade("t", 13) ? 3 : 1)
+      mult=mult.mul(new Decimal(hasUpgrade("t",31)?4:3).pow(getBuyableAmount("c",13)))
+      if (hasUpgrade(this.layer,32))mult=mult.mul(player.points.plus(1).log10().plus(1))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -69,6 +71,24 @@ addLayer("t", {
         cost: new Decimal(2000),
         unlocked(){return hasUpgrade("t", 21)},
       },
+      31: {
+        title: "Triangle Fork",
+        description: "Make Code Buyables more effective. (3x effect -> 4x effect)",
+        cost: new Decimal(1e10),
+        unlocked(){return hasUpgrade("t", 23)},
+      },
+      32: {
+        title: "Pythagorean Theorem",
+        description: "Multiply triangle gain based on points.",
+        cost: new Decimal(1e12),
+        unlocked(){return hasUpgrade("t", 31)},
+      },
+      33: {
+        title: "Tri-Prestigious",
+        description: "Unlock 2 new Prestige Upgrades.",
+        cost: new Decimal(1e16),
+        unlocked(){return hasUpgrade("t", 32)},
+      },
     },
     milestones: {
     0: {
@@ -87,3 +107,5 @@ addLayer("t", {
     },
   },
 })
+//Pythagorean Theorem: Multiply triangle gain based on points.
+//xlog10(points+1)+1
